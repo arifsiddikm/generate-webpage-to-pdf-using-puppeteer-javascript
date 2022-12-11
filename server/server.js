@@ -1,14 +1,14 @@
 const puppeteer = require("puppeteer");
 const path = require('path');
 const express = require('express');
-const app = express();
+const app = express();  
 
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.get('/pdf', async (req, res) => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.goto("https://news.ycombinator.com/", {
+    await page.goto("https://arifsiddikm.com/", {
       waitUntil: "networkidle2"
     });
     await page.setViewport({ width: 1680, height: 1050 });
@@ -25,15 +25,15 @@ app.get('/pdf', async (req, res) => {
       printBackground: true,
       displayHeaderFooter: true,
       headerTemplate: `<div style="font-size:7px;white-space:nowrap;margin-left:38px;">
-                          ${new Date().toDateString()}
-                          <span style="margin-left: 10px;">Generated PDF</span>
-                      </div>`,
+          ${new Date().toDateString()}
+          <span style="margin-left: 10px;">Generated PDF</span>
+      </div>`,
       footerTemplate: `<div style="font-size:7px;white-space:nowrap;margin-left:38px;width:100%;">
-                          Generated PDF
-                          <span style="display:inline-block;float:right;margin-right:10px;">
-                              <span class="pageNumber"></span> / <span class="totalPages"></span>
-                          </span>
-                      </div>`,
+          Generated PDF
+          <span style="display:inline-block;float:right;margin-right:10px;">
+              <span class="pageNumber"></span> / <span class="totalPages"></span>
+          </span>
+      </div>`,
       margin: {
         top: '38px',
         right: '38px',
@@ -49,6 +49,6 @@ app.get('/pdf', async (req, res) => {
     res.sendFile(pdfURL);
 });
 
-app.listen(5000, () => {
-    console.log('server started on port 5000');
+app.listen(8000, () => {
+    console.log('server started on port 8000');
 });
